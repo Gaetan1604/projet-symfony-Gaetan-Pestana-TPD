@@ -1,0 +1,53 @@
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Gestion</div>
+                    
+                    <!-- Lien pour créer un nouvel article -->
+                    <a class="nav-link" href="{{ path('app_articles_create') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
+                        Nouvel Article
+                    </a>
+                    
+                    <!-- Lien pour afficher les articles -->
+                    <a class="nav-link" href="{{ path('app_article_show') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                        Liste des Articles
+                    </a>
+                    
+                    <!-- Lien pour gérer les catégories -->
+                    <a class="nav-link" href="{{ path('app_categorie_index') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
+                        Catégories
+                    </a>
+
+                    <div class="sb-sidenav-menu-heading">Authentification</div>
+
+                    {% if app.user %}
+                        <!-- Lien pour se déconnecter -->
+                        <a class="nav-link" href="{{ path('app_logout') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            Déconnexion
+                        </a>
+                    {% else %}
+                        <!-- Lien pour se connecter -->
+                        <a class="nav-link" href="{{ path('app_login') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            Connexion
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Connecté en tant que :</div>
+                {% if app.user %}
+                    {{ app.user.userIdentifier }}
+                {% else %}
+                    Invité
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</div>

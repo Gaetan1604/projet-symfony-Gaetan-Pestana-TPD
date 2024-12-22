@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1>Liste des articles</h1>
+
+        <!-- Affichage des messages flash -->
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }} mt-3">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <!-- Liste des articles -->
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <!-- Affichage de l'image si elle existe -->
+                        {% if article.imageFilename %}
+                            <img src="{{ asset('uploads/' ~ article.imageFilename) }}" class="card-img-top" alt="Image de {{ article.titre }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.titre }}</h5>
+                            <p class="card-text">{{ article.texte }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">Publié le {{ article.date|date('d/m/Y') }}</small>
+                            </p>
+                            <a href="{{ path('app_article_edit', { id: article.id }) }}" class="btn btn-primary">Modifier</a>
+                            <form action="{{ path('app_article_delete', { id: article.id }) }}" method="post" style="display: inline;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun article trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

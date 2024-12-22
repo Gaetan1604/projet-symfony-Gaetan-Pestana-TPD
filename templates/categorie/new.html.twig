@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un article{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1>Créer un nouvel article</h1>
+
+        <!-- Affichage des messages flash -->
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }} mt-3">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <!-- Formulaire de création d'article -->
+        <div class="card shadow-sm p-4">
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.titre) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.texte, 'Texte', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.texte, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.texte) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.publie, 'Publié', {'label_attr': {'class': 'form-check-label'}}) }}
+                    <div class="form-check">
+                        {{ form_widget(form.publie, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_errors(form.publie) }}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.date, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.date) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.image) }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="categorie">Catégorie</label>
+                    {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.categorie) }}
+                    <small>
+                        <a href="{{ path('app_categorie_new') }}" class="text-primary">Créer une nouvelle catégorie</a>
+                    </small>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Créer l'article</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
